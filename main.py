@@ -7,15 +7,16 @@ from sqlalchemy.orm import relationship
 from flask_bootstrap import Bootstrap
 from flask_ckeditor import CKEditor
 from flask_gravatar import Gravatar
-from dotenv import load_dotenv
+# from dotenv import load_dotenv
 from functools import wraps
 from datetime import date
 import os
 
-load_dotenv("D:/Python/Environment_Variables/.env")
+# load_dotenv("D:/Python/Environment_Variables/.env")
 
 app = Flask(__name__)
-app.config['SECRET_KEY'] = os.getenv("SECRET_BLOG_KEY")
+# app.config['SECRET_KEY'] = os.getenv("SECRET_BLOG_KEY")
+app.config['SECRET_KEY'] = os.envoron.get("SECRET_KEY")
 ckeditor = CKEditor(app)
 Bootstrap(app)
 
@@ -29,7 +30,7 @@ gravatar = Gravatar(app,
                     base_url=None)
 
 ## CONNECT TO DB
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///blog.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = os.environ.get("DATABASE_URL", "sqlite:///blog.db")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 db = SQLAlchemy(app)
 
